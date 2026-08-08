@@ -1,0 +1,159 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Award, BarChart3, ListChecks, Play, Sparkles, TrendingUp } from "lucide-react";
+import { SiteHeader } from "@/components/SiteHeader";
+import { readHistory, type HistoryEntry } from "@/context/InterviewContext";
+import { api } from "@/services/api";
+import { DAY_LABELS } from "@/utils/format";
+
+export const Route = createFileRoute("/dashboard")({
+  head: () => ({
+    meta: [
+      { title: "Dashboard — AI Interview Agent" },
+      {
+        name: "description",
+        content: "Your interview stats, recent sessions and agent-generated preparation insights.",
+      },
+      { property: "og:title", content: "Dashboard — AI Interview Agent" },
+      { property: "og:description", content: "Interview stats and agent insights." },
+    ],
+  }),
+  component: Dashboard,
+});
+
+type Post = { id: string; title: string; body: string; tags: string[] };
+
+function Dashboard() {
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [feedLoading, setFeedLoading] = useState(true);
+
+  useEffect(() => {
+    setHistory(readHistory());
+    api
+      .getFeed()
+      .then((r) => setPosts(r.posts ?? []))
+      .catch(() => setPosts([]))
+      .finally(() => setFeedLoading(false));
+  }, []);
+
+  const scores = history.map((h) => h.score);
+  const stats = [
+    { label: "Interviews", value: history.length, icon: BarChart3 },
+    {
+      label: "Average Score",
+      value: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0,
+      icon: TrendingUp,
+    },
+    { label: "Best Score", value: scores.length ? Math.max(...scores) : 0, icon: Award },
+    {
+      label: "Questions Answered",
+      value: history.reduce((a, b) => a + b.questions, 0),
+      icon: ListChecks,
+    },
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <SiteHeader />
+      <main className="mx-auto max-w-6xl px-5 py-12">
+        <h1 className="font-display text-4xl font-semibold">Welcome back.</h1>
+        <p className="mt-3 text-muted-foreground">
+          Track your practice sessions and pick up where you left off.
+        </p>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.label} className="glass rounded-3xl p-6">
+              <s.icon className="h-5 w-5 text-accent" />
+              <p className="mt-4 font-display text-3xl font-semibold">{s.value}</p>
+              <p className="text-sm text-muted-foreground">{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            to="/setup"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-hero px-6 py-3.5 font-semibold text-primary-foreground glow-ring"
+          >
+            <Play className="h-4 w-4" /> Start New Interview
+          </Link>
+          {history[0] ? (
+            <Link
+              to="/results/$sessionId"
+              params={{ sessionId: history[0].sessionId }}
+              className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3.5 font-medium transition-colors hover:bg-secondary"
+            >
+              View Results
+            </Link>
+          ) : null}
+        </div>
+
+        <h2 className="mt-12 font-display text-2xl font-semibold">Recent interviews</h2>
+        <div className="mt-5 space-y-3">
+          {history.length === 0 ? (
+            <div className="glass rounded-3xl p-8 text-center text-muted-foreground">
+              No interviews yet — start one to see your results here.
+            </div>
+          ) : (
+            history.map((h) => (
+              <Link
+                key={h.sessionId}
+                to="/results/$sessionId"
+                params={{ sessionId: h.sessionId }}
+                className="glass flex flex-wrap items-center gap-4 rounded-2xl p-5 transition-transform hover:-translate-y-0.5"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium">
+                    Day {h.day} · {DAY_LABELS[h.day]}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {h.userId} · {h.interviewType} · {h.difficulty} ·{" "}
+                    {new Date(h.completedAt).toLocaleString()}
+                  </p>
+                </div>
+                <span className="font-display text-2xl font-semibold text-gradient">{h.score}</span>
+              </Link>
+            ))
+          )}
+        </div>
+
+        <h2 className="mt-12 flex items-center gap-2 font-display text-2xl font-semibold">
+          <Sparkles className="h-5 w-5 text-accent" /> Agent insights
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Autonomously generated by the interview agent after initialization.
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {feedLoading ? (
+            <div className="glass rounded-3xl p-6 text-sm text-muted-foreground">
+              Loading agent feed…
+            </div>
+          ) : posts.length === 0 ? (
+            <div className="glass rounded-3xl p-6 text-sm text-muted-foreground">
+              Agent feed unavailable right now.
+            </div>
+          ) : (
+            posts.map((p) => (
+              <article key={p.id} className="glass rounded-3xl p-6">
+                <h3 className="font-display text-lg font-semibold">{p.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{p.body}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-xs text-muted-foreground"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            ))
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}

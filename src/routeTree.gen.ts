@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CompleteRouteImport } from './routes/complete'
 import { Route as HealthRouteImport } from './routes/health'
+import { Route as InterviewRouteImport } from './routes/interview'
 import { Route as SetupRouteImport } from './routes/setup'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiAgentFeedRouteImport } from './routes/api/agent/feed'
@@ -26,9 +28,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompleteRoute = CompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HealthRoute = HealthRouteImport.update({
   id: '/health',
   path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterviewRoute = InterviewRouteImport.update({
+  id: '/interview',
+  path: '/interview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SetupRoute = SetupRouteImport.update({
@@ -81,7 +93,9 @@ const ApiInterviewSessionSessionIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/complete': typeof CompleteRoute
   '/health': typeof HealthRoute
+  '/interview': typeof InterviewRoute
   '/setup': typeof SetupRoute
   '/api/health': typeof ApiHealthRoute
   '/api/agent/feed': typeof ApiAgentFeedRoute
@@ -94,7 +108,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/complete': typeof CompleteRoute
   '/health': typeof HealthRoute
+  '/interview': typeof InterviewRoute
   '/setup': typeof SetupRoute
   '/api/health': typeof ApiHealthRoute
   '/api/agent/feed': typeof ApiAgentFeedRoute
@@ -108,7 +124,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/complete': typeof CompleteRoute
   '/health': typeof HealthRoute
+  '/interview': typeof InterviewRoute
   '/setup': typeof SetupRoute
   '/api/health': typeof ApiHealthRoute
   '/api/agent/feed': typeof ApiAgentFeedRoute
@@ -123,7 +141,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/complete'
     | '/health'
+    | '/interview'
     | '/setup'
     | '/api/health'
     | '/api/agent/feed'
@@ -136,7 +156,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/complete'
     | '/health'
+    | '/interview'
     | '/setup'
     | '/api/health'
     | '/api/agent/feed'
@@ -149,7 +171,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/complete'
     | '/health'
+    | '/interview'
     | '/setup'
     | '/api/health'
     | '/api/agent/feed'
@@ -163,7 +187,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompleteRoute: typeof CompleteRoute
   HealthRoute: typeof HealthRoute
+  InterviewRoute: typeof InterviewRoute
   SetupRoute: typeof SetupRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiAgentFeedRoute: typeof ApiAgentFeedRoute
@@ -184,11 +210,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/complete': {
+      id: '/complete'
+      path: '/complete'
+      fullPath: '/complete'
+      preLoaderRoute: typeof CompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/health': {
       id: '/health'
       path: '/health'
       fullPath: '/health'
       preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interview': {
+      id: '/interview'
+      path: '/interview'
+      fullPath: '/interview'
+      preLoaderRoute: typeof InterviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/setup': {
@@ -259,7 +299,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompleteRoute: CompleteRoute,
   HealthRoute: HealthRoute,
+  InterviewRoute: InterviewRoute,
   SetupRoute: SetupRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiAgentFeedRoute: ApiAgentFeedRoute,
