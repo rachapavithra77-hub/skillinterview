@@ -4,7 +4,7 @@ import { Loader2, MessageSquareQuote, Target, User } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ErrorPanel } from "@/components/ErrorPanel";
 import { ScoreBar, ScoreRing } from "@/components/ScoreVisuals";
-import { ListCard } from "./complete";
+import { ListCard } from "@/components/ListCard";
 import { api, ApiError, type Feedback } from "@/services/api";
 import { DAY_LABELS, scoreTone } from "@/utils/format";
 
