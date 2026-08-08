@@ -10,33 +10,221 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CompleteRouteImport } from './routes/complete'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as HealthRouteImport } from './routes/health'
+import { Route as InterviewRouteImport } from './routes/interview'
+import { Route as SetupRouteImport } from './routes/setup'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ResultsSessionIdRouteImport } from './routes/results/$sessionId'
+import { Route as ApiAgentFeedRouteImport } from './routes/api/agent/feed'
+import { Route as ApiAgentInitRouteImport } from './routes/api/agent/init'
+import { Route as ApiInterviewEndRouteImport } from './routes/api/interview/end'
+import { Route as ApiInterviewMessageRouteImport } from './routes/api/interview/message'
+import { Route as ApiInterviewStartRouteImport } from './routes/api/interview/start'
+import { Route as ApiInterviewFeedbackSessionIdRouteImport } from './routes/api/interview/feedback/$sessionId'
+import { Route as ApiInterviewSessionSessionIdRouteImport } from './routes/api/interview/session/$sessionId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompleteRoute = CompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterviewRoute = InterviewRouteImport.update({
+  id: '/interview',
+  path: '/interview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultsSessionIdRoute = ResultsSessionIdRouteImport.update({
+  id: '/results/$sessionId',
+  path: '/results/$sessionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentFeedRoute = ApiAgentFeedRouteImport.update({
+  id: '/api/agent/feed',
+  path: '/api/agent/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentInitRoute = ApiAgentInitRouteImport.update({
+  id: '/api/agent/init',
+  path: '/api/agent/init',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInterviewEndRoute = ApiInterviewEndRouteImport.update({
+  id: '/api/interview/end',
+  path: '/api/interview/end',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInterviewMessageRoute = ApiInterviewMessageRouteImport.update({
+  id: '/api/interview/message',
+  path: '/api/interview/message',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInterviewStartRoute = ApiInterviewStartRouteImport.update({
+  id: '/api/interview/start',
+  path: '/api/interview/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInterviewFeedbackSessionIdRoute =
+  ApiInterviewFeedbackSessionIdRouteImport.update({
+    id: '/api/interview/feedback/$sessionId',
+    path: '/api/interview/feedback/$sessionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInterviewSessionSessionIdRoute =
+  ApiInterviewSessionSessionIdRouteImport.update({
+    id: '/api/interview/session/$sessionId',
+    path: '/api/interview/session/$sessionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/complete': typeof CompleteRoute
+  '/dashboard': typeof DashboardRoute
+  '/health': typeof HealthRoute
+  '/interview': typeof InterviewRoute
+  '/setup': typeof SetupRoute
+  '/api/health': typeof ApiHealthRoute
+  '/results/$sessionId': typeof ResultsSessionIdRoute
+  '/api/agent/feed': typeof ApiAgentFeedRoute
+  '/api/agent/init': typeof ApiAgentInitRoute
+  '/api/interview/end': typeof ApiInterviewEndRoute
+  '/api/interview/message': typeof ApiInterviewMessageRoute
+  '/api/interview/start': typeof ApiInterviewStartRoute
+  '/api/interview/feedback/$sessionId': typeof ApiInterviewFeedbackSessionIdRoute
+  '/api/interview/session/$sessionId': typeof ApiInterviewSessionSessionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/complete': typeof CompleteRoute
+  '/dashboard': typeof DashboardRoute
+  '/health': typeof HealthRoute
+  '/interview': typeof InterviewRoute
+  '/setup': typeof SetupRoute
+  '/api/health': typeof ApiHealthRoute
+  '/results/$sessionId': typeof ResultsSessionIdRoute
+  '/api/agent/feed': typeof ApiAgentFeedRoute
+  '/api/agent/init': typeof ApiAgentInitRoute
+  '/api/interview/end': typeof ApiInterviewEndRoute
+  '/api/interview/message': typeof ApiInterviewMessageRoute
+  '/api/interview/start': typeof ApiInterviewStartRoute
+  '/api/interview/feedback/$sessionId': typeof ApiInterviewFeedbackSessionIdRoute
+  '/api/interview/session/$sessionId': typeof ApiInterviewSessionSessionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/complete': typeof CompleteRoute
+  '/dashboard': typeof DashboardRoute
+  '/health': typeof HealthRoute
+  '/interview': typeof InterviewRoute
+  '/setup': typeof SetupRoute
+  '/api/health': typeof ApiHealthRoute
+  '/results/$sessionId': typeof ResultsSessionIdRoute
+  '/api/agent/feed': typeof ApiAgentFeedRoute
+  '/api/agent/init': typeof ApiAgentInitRoute
+  '/api/interview/end': typeof ApiInterviewEndRoute
+  '/api/interview/message': typeof ApiInterviewMessageRoute
+  '/api/interview/start': typeof ApiInterviewStartRoute
+  '/api/interview/feedback/$sessionId': typeof ApiInterviewFeedbackSessionIdRoute
+  '/api/interview/session/$sessionId': typeof ApiInterviewSessionSessionIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/complete'
+    | '/dashboard'
+    | '/health'
+    | '/interview'
+    | '/setup'
+    | '/api/health'
+    | '/results/$sessionId'
+    | '/api/agent/feed'
+    | '/api/agent/init'
+    | '/api/interview/end'
+    | '/api/interview/message'
+    | '/api/interview/start'
+    | '/api/interview/feedback/$sessionId'
+    | '/api/interview/session/$sessionId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/complete'
+    | '/dashboard'
+    | '/health'
+    | '/interview'
+    | '/setup'
+    | '/api/health'
+    | '/results/$sessionId'
+    | '/api/agent/feed'
+    | '/api/agent/init'
+    | '/api/interview/end'
+    | '/api/interview/message'
+    | '/api/interview/start'
+    | '/api/interview/feedback/$sessionId'
+    | '/api/interview/session/$sessionId'
+  id:
+    | '__root__'
+    | '/'
+    | '/complete'
+    | '/dashboard'
+    | '/health'
+    | '/interview'
+    | '/setup'
+    | '/api/health'
+    | '/results/$sessionId'
+    | '/api/agent/feed'
+    | '/api/agent/init'
+    | '/api/interview/end'
+    | '/api/interview/message'
+    | '/api/interview/start'
+    | '/api/interview/feedback/$sessionId'
+    | '/api/interview/session/$sessionId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompleteRoute: typeof CompleteRoute
+  DashboardRoute: typeof DashboardRoute
+  HealthRoute: typeof HealthRoute
+  InterviewRoute: typeof InterviewRoute
+  SetupRoute: typeof SetupRoute
+  ApiHealthRoute: typeof ApiHealthRoute
+  ResultsSessionIdRoute: typeof ResultsSessionIdRoute
+  ApiAgentFeedRoute: typeof ApiAgentFeedRoute
+  ApiAgentInitRoute: typeof ApiAgentInitRoute
+  ApiInterviewEndRoute: typeof ApiInterviewEndRoute
+  ApiInterviewMessageRoute: typeof ApiInterviewMessageRoute
+  ApiInterviewStartRoute: typeof ApiInterviewStartRoute
+  ApiInterviewFeedbackSessionIdRoute: typeof ApiInterviewFeedbackSessionIdRoute
+  ApiInterviewSessionSessionIdRoute: typeof ApiInterviewSessionSessionIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +236,124 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/complete': {
+      id: '/complete'
+      path: '/complete'
+      fullPath: '/complete'
+      preLoaderRoute: typeof CompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interview': {
+      id: '/interview'
+      path: '/interview'
+      fullPath: '/interview'
+      preLoaderRoute: typeof InterviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/results/$sessionId': {
+      id: '/results/$sessionId'
+      path: '/results/$sessionId'
+      fullPath: '/results/$sessionId'
+      preLoaderRoute: typeof ResultsSessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agent/feed': {
+      id: '/api/agent/feed'
+      path: '/api/agent/feed'
+      fullPath: '/api/agent/feed'
+      preLoaderRoute: typeof ApiAgentFeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agent/init': {
+      id: '/api/agent/init'
+      path: '/api/agent/init'
+      fullPath: '/api/agent/init'
+      preLoaderRoute: typeof ApiAgentInitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/interview/end': {
+      id: '/api/interview/end'
+      path: '/api/interview/end'
+      fullPath: '/api/interview/end'
+      preLoaderRoute: typeof ApiInterviewEndRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/interview/message': {
+      id: '/api/interview/message'
+      path: '/api/interview/message'
+      fullPath: '/api/interview/message'
+      preLoaderRoute: typeof ApiInterviewMessageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/interview/start': {
+      id: '/api/interview/start'
+      path: '/api/interview/start'
+      fullPath: '/api/interview/start'
+      preLoaderRoute: typeof ApiInterviewStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/interview/feedback/$sessionId': {
+      id: '/api/interview/feedback/$sessionId'
+      path: '/api/interview/feedback/$sessionId'
+      fullPath: '/api/interview/feedback/$sessionId'
+      preLoaderRoute: typeof ApiInterviewFeedbackSessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/interview/session/$sessionId': {
+      id: '/api/interview/session/$sessionId'
+      path: '/api/interview/session/$sessionId'
+      fullPath: '/api/interview/session/$sessionId'
+      preLoaderRoute: typeof ApiInterviewSessionSessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompleteRoute: CompleteRoute,
+  DashboardRoute: DashboardRoute,
+  HealthRoute: HealthRoute,
+  InterviewRoute: InterviewRoute,
+  SetupRoute: SetupRoute,
+  ApiHealthRoute: ApiHealthRoute,
+  ResultsSessionIdRoute: ResultsSessionIdRoute,
+  ApiAgentFeedRoute: ApiAgentFeedRoute,
+  ApiAgentInitRoute: ApiAgentInitRoute,
+  ApiInterviewEndRoute: ApiInterviewEndRoute,
+  ApiInterviewMessageRoute: ApiInterviewMessageRoute,
+  ApiInterviewStartRoute: ApiInterviewStartRoute,
+  ApiInterviewFeedbackSessionIdRoute: ApiInterviewFeedbackSessionIdRoute,
+  ApiInterviewSessionSessionIdRoute: ApiInterviewSessionSessionIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
