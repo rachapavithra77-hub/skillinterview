@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { InterviewProvider } from "../context/InterviewContext";
+import { AppBackground } from "../components/AppBackground";
 
 function NotFoundComponent() {
   return (
