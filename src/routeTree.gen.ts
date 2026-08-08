@@ -10,33 +10,80 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HealthRouteImport } from './routes/health'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ApiAgentFeedRouteImport } from './routes/api/agent/feed'
+import { Route as ApiAgentInitRouteImport } from './routes/api/agent/init'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentFeedRoute = ApiAgentFeedRouteImport.update({
+  id: '/api/agent/feed',
+  path: '/api/agent/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentInitRoute = ApiAgentInitRouteImport.update({
+  id: '/api/agent/init',
+  path: '/api/agent/init',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/health': typeof HealthRoute
+  '/api/health': typeof ApiHealthRoute
+  '/api/agent/feed': typeof ApiAgentFeedRoute
+  '/api/agent/init': typeof ApiAgentInitRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/health': typeof HealthRoute
+  '/api/health': typeof ApiHealthRoute
+  '/api/agent/feed': typeof ApiAgentFeedRoute
+  '/api/agent/init': typeof ApiAgentInitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/health': typeof HealthRoute
+  '/api/health': typeof ApiHealthRoute
+  '/api/agent/feed': typeof ApiAgentFeedRoute
+  '/api/agent/init': typeof ApiAgentInitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/health' | '/api/health' | '/api/agent/feed' | '/api/agent/init'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/health' | '/api/health' | '/api/agent/feed' | '/api/agent/init'
+  id:
+    | '__root__'
+    | '/'
+    | '/health'
+    | '/api/health'
+    | '/api/agent/feed'
+    | '/api/agent/init'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HealthRoute: typeof HealthRoute
+  ApiHealthRoute: typeof ApiHealthRoute
+  ApiAgentFeedRoute: typeof ApiAgentFeedRoute
+  ApiAgentInitRoute: typeof ApiAgentInitRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +95,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agent/feed': {
+      id: '/api/agent/feed'
+      path: '/api/agent/feed'
+      fullPath: '/api/agent/feed'
+      preLoaderRoute: typeof ApiAgentFeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agent/init': {
+      id: '/api/agent/init'
+      path: '/api/agent/init'
+      fullPath: '/api/agent/init'
+      preLoaderRoute: typeof ApiAgentInitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HealthRoute: HealthRoute,
+  ApiHealthRoute: ApiHealthRoute,
+  ApiAgentFeedRoute: ApiAgentFeedRoute,
+  ApiAgentInitRoute: ApiAgentInitRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
