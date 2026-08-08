@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HealthRouteImport } from './routes/health'
+import { Route as SetupRouteImport } from './routes/setup'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiAgentFeedRouteImport } from './routes/api/agent/feed'
 import { Route as ApiAgentInitRouteImport } from './routes/api/agent/init'
@@ -28,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const HealthRoute = HealthRouteImport.update({
   id: '/health',
   path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
@@ -76,6 +82,7 @@ const ApiInterviewSessionSessionIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/health': typeof HealthRoute
+  '/setup': typeof SetupRoute
   '/api/health': typeof ApiHealthRoute
   '/api/agent/feed': typeof ApiAgentFeedRoute
   '/api/agent/init': typeof ApiAgentInitRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/health': typeof HealthRoute
+  '/setup': typeof SetupRoute
   '/api/health': typeof ApiHealthRoute
   '/api/agent/feed': typeof ApiAgentFeedRoute
   '/api/agent/init': typeof ApiAgentInitRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/health': typeof HealthRoute
+  '/setup': typeof SetupRoute
   '/api/health': typeof ApiHealthRoute
   '/api/agent/feed': typeof ApiAgentFeedRoute
   '/api/agent/init': typeof ApiAgentInitRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/health'
+    | '/setup'
     | '/api/health'
     | '/api/agent/feed'
     | '/api/agent/init'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/health'
+    | '/setup'
     | '/api/health'
     | '/api/agent/feed'
     | '/api/agent/init'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/health'
+    | '/setup'
     | '/api/health'
     | '/api/agent/feed'
     | '/api/agent/init'
@@ -152,6 +164,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HealthRoute: typeof HealthRoute
+  SetupRoute: typeof SetupRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiAgentFeedRoute: typeof ApiAgentFeedRoute
   ApiAgentInitRoute: typeof ApiAgentInitRoute
@@ -176,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/health'
       fullPath: '/health'
       preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/health': {
@@ -240,6 +260,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HealthRoute: HealthRoute,
+  SetupRoute: SetupRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiAgentFeedRoute: ApiAgentFeedRoute,
   ApiAgentInitRoute: ApiAgentInitRoute,
