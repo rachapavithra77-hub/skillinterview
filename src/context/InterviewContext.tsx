@@ -128,10 +128,7 @@ export function InterviewProvider({ children }: { children: ReactNode }) {
       try {
         const res = await api.sendAnswer(sessionId, content);
         answered.current += 1;
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: res.message.content, questionId: res.message.questionId ?? undefined },
-        ]);
+        setMessages((prev) => [...prev, { role: "assistant", content: res.message.content }]);
         setCurrentQuestion(res.question);
         setProgress(res.progress);
         if (res.completed) {
