@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { InterviewProvider } from "../context/InterviewContext";
+import { AuthProvider } from "../context/AuthContext";
 import { AppBackground } from "../components/AppBackground";
 
 function NotFoundComponent() {
@@ -128,11 +129,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <InterviewProvider>
-        <AppBackground />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </InterviewProvider>
+      <AuthProvider>
+        <InterviewProvider>
+          <AppBackground />
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </InterviewProvider>
+      </AuthProvider>
     </QueryClientProvider>
 
   );

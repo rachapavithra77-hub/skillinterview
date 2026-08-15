@@ -1,7 +1,11 @@
-import { Link } from "@tanstack/react-router";
-import { BrainCircuit, LayoutDashboard } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { BrainCircuit, LayoutDashboard, LogIn, LogOut } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export function SiteHeader() {
+  const { session, signOut } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
