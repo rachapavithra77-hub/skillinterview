@@ -50,7 +50,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: typeof window !== "undefined" ? window.location.origin : undefined },
+      options:
+        typeof window !== "undefined" ? { emailRedirectTo: window.location.origin } : {},
     });
     return { error: error?.message ?? null, needsConfirmation: Boolean(data.user && !data.session) };
   }, []);
